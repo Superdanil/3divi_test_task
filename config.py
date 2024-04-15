@@ -1,0 +1,11 @@
+INPUT_SERVICE_URL: str = "http://127.0.0.1:8000"
+
+HANDLE_SERVICE_URL: str = "http://127.0.0.1:8001"
+
+WRITE_SERVICE_URL: str = "http://127.0.0.1:8002"
+
+CONNECTION_COUNT: int = 6
+
+CONNECTION_VALUE: int = 60
+
+DELAY_RANGE: int = 5
