@@ -6,8 +6,7 @@ from random import uniform
 import aiohttp
 from fastapi.encoders import jsonable_encoder
 
-import config
-from config import INPUT_SERVICE_URL
+from settings import settings
 
 
 class ClientService:
@@ -26,7 +25,7 @@ class ClientService:
             await asyncio.gather(*requests)
 
     def _get_params(self, pid: int, request_id: int) -> dict:
-        """Возвращает params для HTTP-запроса"""
+        """Возвращает словарь параметров для HTTP-запроса."""
 
         id_ = f"{pid}_{request_id}"
         delay = round(uniform(0.1, self.delay_range), 2)
@@ -37,15 +36,14 @@ class ClientService:
     async def _send_request(self, session, params):
         self._write_log(params)
         payload = jsonable_encoder(params)
-
-        async with session.post(INPUT_SERVICE_URL,
+        async with session.post(settings.input_service_url,
                                 headers={"Content-Type": "application/json"},
                                 json=payload) as result:
             return result
 
     @staticmethod
     def _write_log(params):
-        """Метод записи лога. Не через логуру, конечно, но шо поделать."""
+        """Метод записи лога."""
 
         with open("log.txt", "a", encoding="utf-8") as file:
             file.write(
@@ -59,6 +57,7 @@ class ClientService:
 
 
 def run(*args):
+    print(args)
     params = args[0]
     client = ClientService(pid=params[0], request_count=params[1], delay_range=params[2])
     asyncio.run(client.start())
@@ -66,11 +65,11 @@ def run(*args):
 
 if __name__ == "__main__":
 
-    requests_count = config.CONNECTION_VALUE // config.CONNECTION_COUNT
+    requests_count = settings.CONNECTION_VALUE // settings.CONNECTION_COUNT
 
-    args = [(i, requests_count, config.DELAY_RANGE) for i in range(config.CONNECTION_COUNT)]
+    args = [(i, requests_count, settings.DELAY_RANGE) for i in range(settings.CONNECTION_COUNT)]
 
-    with multiprocessing.Pool(processes=config.CONNECTION_COUNT) as pool:
+    with multiprocessing.Pool(processes=settings.CONNECTION_COUNT) as pool:
         try:
             pool.map(run, args)
         except KeyboardInterrupt:

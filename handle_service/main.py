@@ -1,12 +1,10 @@
 import asyncio
-import json
-import multiprocessing
+from settings import settings
 
 import aiohttp
 import uvicorn
 from fastapi import FastAPI, status
 
-from config import WRITE_SERVICE_URL
 from schemas import Req
 
 app = FastAPI(title="Сервис-обработчик")
@@ -17,7 +15,8 @@ async def handle(req: Req):
     payload = req.model_dump(mode="json")
 
     async with aiohttp.ClientSession() as session:
-        res = await session.post(f'{WRITE_SERVICE_URL}/txt2',
+        url = f"{settings.write_service_url}/write/txt2"
+        res = await session.post(url,
                                  headers={"Content-Type": "application/json"},
                                  json=payload)
         res = await res.json()
@@ -28,10 +27,17 @@ async def handle(req: Req):
     req_payload = payload | res
 
     async with aiohttp.ClientSession() as session:
-        await session.post(f'{WRITE_SERVICE_URL}/txt1',
+        url = f"{settings.write_service_url}/write/txt1"
+        await session.post(url,
                            headers={"Content-Type": "application/json"},
                            json=req_payload)
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=8001, log_level="info", reload=True)
+    uvicorn.run(
+        app="main:app",
+        host=settings.HANDLE_SERVICE_HOST,
+        port=settings.HANDLE_SERVICE_PORT,
+        log_level="info",
+        reload=True
+    )

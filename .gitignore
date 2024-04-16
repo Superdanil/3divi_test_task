@@ -1,0 +1,5 @@
+/.env
+/.venv
+/.idea
+/logs/txt1.txt
+/logs/txt2.txt
