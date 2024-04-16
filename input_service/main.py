@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import aiohttp
 import uvicorn
 from fastapi import FastAPI, status
@@ -10,7 +12,6 @@ app = FastAPI(title="Сервис-приёмщик")
 
 @app.post("/", status_code=status.HTTP_200_OK)
 async def gogogo(req: Req) -> dict:
-
     payload = jsonable_encoder(req)
 
     async with aiohttp.ClientSession() as session:
@@ -22,4 +23,4 @@ async def gogogo(req: Req) -> dict:
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=8000, log_level="info", reload=True)
+    uvicorn.run("main:app", port=8000, log_level="info", reload=True, workers=6)

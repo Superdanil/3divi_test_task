@@ -37,6 +37,7 @@ class ClientService:
     async def _send_request(self, session, params):
         self._write_log(params)
         payload = jsonable_encoder(params)
+
         async with session.post(INPUT_SERVICE_URL,
                                 headers={"Content-Type": "application/json"},
                                 json=payload) as result:
@@ -67,11 +68,11 @@ if __name__ == "__main__":
 
     requests_count = config.CONNECTION_VALUE // config.CONNECTION_COUNT
 
-    jobs = [(i, requests_count, config.DELAY_RANGE) for i in range(config.CONNECTION_COUNT)]
+    args = [(i, requests_count, config.DELAY_RANGE) for i in range(config.CONNECTION_COUNT)]
 
     with multiprocessing.Pool(processes=config.CONNECTION_COUNT) as pool:
         try:
-            pool.map(run, jobs)
+            pool.map(run, args)
         except KeyboardInterrupt:
             pool.close()
             pool.join()
