@@ -1,11 +1,9 @@
 import asyncio
-import multiprocessing
 from datetime import datetime
 from random import uniform
 
 import aiohttp
 from fastapi.encoders import jsonable_encoder
-
 from settings import settings
 
 
@@ -54,24 +52,3 @@ class ClientService:
     async def start(self):
         loop_task = asyncio.create_task(self._send_request_pool())
         await asyncio.wait([loop_task])
-
-
-def run(*args):
-    print(args)
-    params = args[0]
-    client = ClientService(pid=params[0], request_count=params[1], delay_range=params[2])
-    asyncio.run(client.start())
-
-
-if __name__ == "__main__":
-
-    requests_count = settings.CONNECTION_VALUE // settings.CONNECTION_COUNT
-
-    args = [(i, requests_count, settings.DELAY_RANGE) for i in range(settings.CONNECTION_COUNT)]
-
-    with multiprocessing.Pool(processes=settings.CONNECTION_COUNT) as pool:
-        try:
-            pool.map(run, args)
-        except KeyboardInterrupt:
-            pool.close()
-            pool.join()

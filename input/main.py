@@ -2,12 +2,12 @@ import uvicorn
 from fastapi import FastAPI
 
 from settings import settings
-from writer import router as write_router
+from routers import router as input_router
 
 
 def create_app() -> FastAPI:
     app = FastAPI(title="Сервис записи")
-    app.include_router(write_router)
+    app.include_router(input_router)
 
     return app
 
@@ -15,4 +15,4 @@ def create_app() -> FastAPI:
 if __name__ == "__main__":
     app = create_app()
 
-    uvicorn.run(app=app, host=settings.WRITE_SERVICE_HOST, port=settings.WRITE_SERVICE_PORT, log_level="info")
+    uvicorn.run(app=app, host=settings.INPUT_SERVICE_HOST, port=settings.INPUT_SERVICE_PORT, log_level="info")

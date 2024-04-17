@@ -1,4 +1,4 @@
-from write_service import WriteService
+from service import WriteService
 from settings import settings
 
 
