@@ -1,5 +1,5 @@
 /.env
 /.venv
 /.idea
-/logs/txt1.txt
-/logs/txt2.txt
+/writer/logs/txt1.txt
+/writer/logs/txt2.txt

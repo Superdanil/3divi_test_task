@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  writer:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile_Writer
+    restart: always
+    container_name: writer-app
+    env_file:
+      - .env
+    volumes:
+      - logs:/app/writer/logs
+
+  handler:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile_Handler
+    restart: always
+    container_name: handler-app
+    env_file:
+      - .env
+
+  input:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile_Input
+    restart: always
+    container_name: input-app
+    env_file:
+      - .env
+    ports:
+      - "8000:${INPUT_SERVICE_PORT}"
+
+volumes:
+  logs:

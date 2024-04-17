@@ -10,20 +10,18 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8', extra="allow")
 
     # ===== INPUT SERVICE =====
-    INPUT_SERVICE_HOST: str  # = "127.0.0.1"
-    INPUT_SERVICE_PORT: int = 8000
+    INPUT_SERVICE_HOST: str
+    INPUT_SERVICE_PORT: int
 
     # ===== HANDLE SERVICE =====
-    HANDLE_SERVICE_HOST: str = "127.0.0.1"
-    HANDLE_SERVICE_PORT: int = 8001
-    HANDLE_SERVICE_URL: str = f"http://{HANDLE_SERVICE_HOST}:{HANDLE_SERVICE_PORT}"
+    HANDLE_SERVICE_HOST: str
+    HANDLE_SERVICE_PORT: int
 
     # ===== WRITE SERVICE =====
-    WRITE_SERVICE_HOST: str = "127.0.0.1"
-    WRITE_SERVICE_PORT: int = 8002
-    WRITE_SERVICE_URL: str = f"http://{WRITE_SERVICE_HOST}:{WRITE_SERVICE_PORT}"
-    TXT1_PATH: str = "logs/txt1.txt"
-    TXT2_PATH: str = "logs/txt2.txt"
+    WRITE_SERVICE_HOST: str
+    WRITE_SERVICE_PORT: int
+    TXT1_PATH: str = "writer/logs/txt1.txt"
+    TXT2_PATH: str = "writer/logs/txt2.txt"
 
     # ===== CLIENT SERVICE =====
     CONNECTION_COUNT: int = 6
