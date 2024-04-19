@@ -10,7 +10,9 @@ services:
     env_file:
       - .env
     volumes:
-      - logs:/app/writer/logs
+      - type: bind
+        source: ./logs
+        target: /app/writer/logs
 
   handler:
     build:
@@ -21,7 +23,7 @@ services:
     env_file:
       - .env
 
-  input:
+  gateway:
     build:
       context: .
       dockerfile: gateway/Dockerfile
@@ -30,7 +32,7 @@ services:
     env_file:
       - .env
     ports:
-      - "8000:${GATEWAY_PORT}"
+      - "8000:8000"
 
 volumes:
   logs:

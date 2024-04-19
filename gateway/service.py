@@ -11,7 +11,7 @@ class GatewayService:
     def __init__(self, settings: Settings):
         self.settings = settings
 
-    async def handle_request(self, req: Req) -> str:
+    async def handle_request(self, req: Req):
         """Перенаправляет запрос сервису-обработчику."""
         payload = jsonable_encoder(req)
 

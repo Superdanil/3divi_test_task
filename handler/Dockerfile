@@ -1,4 +1,4 @@
-FROM python:3.12.2-slim-bookworm
+FROM python:3.10-slim
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -15,9 +15,6 @@ COPY --chown=app:app settings.py .
 
 COPY ./handler/ ./handler/
 COPY ./schemas/ ./schemas/
-
-EXPOSE ${WRITER_SERVICE_PORT}
-EXPOSE ${INPUT_SERVICE_PORT}
 
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 
