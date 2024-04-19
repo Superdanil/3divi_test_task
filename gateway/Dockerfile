@@ -13,11 +13,11 @@ WORKDIR /app/
 
 COPY --chown=app:app settings.py .
 
-COPY ./writer/ ./writer/
+COPY ./gateway/ ./gateway/
 COPY ./schemas/ ./schemas/
 
 EXPOSE ${HANDLER_SERVICE_PORT}
 
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 
-CMD ["sh", "-c", "python3 writer/main.py"]
+CMD ["sh", "-c", "python3 gateway/main.py"]

@@ -1,1 +1,2 @@
-from service import *
+from .service import *
+from .settings import *

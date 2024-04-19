@@ -4,7 +4,7 @@ services:
   writer:
     build:
       context: .
-      dockerfile: docker/Dockerfile_Writer
+      dockerfile: writer/Dockerfile
     restart: always
     container_name: writer-app
     env_file:
@@ -15,7 +15,7 @@ services:
   handler:
     build:
       context: .
-      dockerfile: docker/Dockerfile_Handler
+      dockerfile: handler/Dockerfile
     restart: always
     container_name: handler-app
     env_file:
@@ -24,13 +24,13 @@ services:
   input:
     build:
       context: .
-      dockerfile: docker/Dockerfile_Input
+      dockerfile: gateway/Dockerfile
     restart: always
-    container_name: input-app
+    container_name: gateway-app
     env_file:
       - .env
     ports:
-      - "8000:${INPUT_SERVICE_PORT}"
+      - "8000:${GATEWAY_PORT}"
 
 volumes:
   logs:

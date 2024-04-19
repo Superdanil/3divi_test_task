@@ -5,7 +5,7 @@ from schemas import Req
 from settings import Settings
 
 
-class InputService:
+class GatewayService:
     """Класс приёма запросов от клиентов."""
 
     def __init__(self, settings: Settings):
