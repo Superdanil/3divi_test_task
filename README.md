@@ -15,3 +15,7 @@
 7. Запустить клиента client/main.py
 8. Лог-файл клиента log.txt сохраняется в директории client. Переписывается при каждом запуске клиента.
 9. txt1 и txt2 сохраняются в папке Logs.
+
+
+
+![Image alt](https://github.com/Superdanil/3divi_test_task/blob/master/UML.jpg)
