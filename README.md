@@ -10,11 +10,18 @@
 2. python3 -m venv venv
 3. source venv/bin/activate (см. ОС)
 4. Файл example.env переименовать в .env
-5. В файле .env изменяем CONNECTION_COUNT, CONNECTION_VALUE И DELAY_RANGE на желаемые
-6. docker-compose up -d --build
-7. Запустить клиента client/main.py
-8. Лог-файл клиента log.txt сохраняется в директории client. Переписывается при каждом запуске клиента.
-9. txt1 и txt2 сохраняются в папке Logs.
+   
+Запуск сервера:
+
+docker-compose up -d --build
+
+Запуск клиента:
+
+В файле .env изменяем CONNECTION_COUNT, CONNECTION_VALUE И DELAY_RANGE на желаемые
+Запустить файл client/main.py
+
+I. Лог-файл клиента log.txt сохраняется в директории client. Переписывается при каждом запуске клиента.
+II. txt1 и txt2 сохраняются в папке Logs. Не переписываются при каждом запуске клиента.
 
 
 
